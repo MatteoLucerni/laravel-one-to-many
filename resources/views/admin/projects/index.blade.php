@@ -16,10 +16,15 @@
         @forelse ($projects as $project)
             <li class="my-5">
                 <div class="card bg-light p-5">
-                    <div class="card-header rounded border-0 mb-4 d-flex justify-content-between align-content-center ">
+                    <div class="card-header rounded border-0 mb-4 d-flex justify-content-between align-content-center">
                         <h2 class="m-0 d-flex align-items-center">
                             {{ $project->title }}
                         </h2>
+                        @if ($project->type)
+                            <p style="background-color: {{ $project->type->color }}"
+                                class="d-flex rounded border border-dark align-items-center m-0 px-3">
+                                {{ $project->type->label }}</p>
+                        @endif
                         @if ($project->is_public)
                             <div class="alert alert-success m-0">
                                 Open-source
