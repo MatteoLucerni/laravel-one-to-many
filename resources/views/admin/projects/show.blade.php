@@ -28,6 +28,9 @@
                         <strong>Repository name:</strong> {{ $project->slug }}
                     </li>
                     <li>
+                        <strong>Category:</strong> {{ $project->type ? $project->type->label : 'None' }}
+                    </li>
+                    <li>
                         <strong>Main Language:</strong> {{ $project->main_lang }}
                     </li>
                     <li>
