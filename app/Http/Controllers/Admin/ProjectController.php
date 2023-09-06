@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -25,7 +26,8 @@ class ProjectController extends Controller
     public function create()
     {
         $project = new Project();
-        return view('admin.projects.create', compact('project'));
+        $types = Type::select('id', 'label')->get();
+        return view('admin.projects.create', compact('project', 'types'));
     }
 
     /**
@@ -41,13 +43,15 @@ class ProjectController extends Controller
                 'main_lang' => 'string|nullable',
                 'other_langs' => 'string|nullable',
                 'n_stars' => 'numeric|nullable|gt:0',
-                'is_public' => 'boolean|nullable'
+                'is_public' => 'boolean|nullable',
+                'type_id' => 'nullable|exists:types,id'
             ],
             [
                 'title.required' => 'The title of the project is required',
                 'title.unique' => 'The title alredy exists, must be unique',
                 'n_stars.numeric' => 'You must insert a positive number',
-                'image.url' => 'The file is not valid',
+                'image.image' => 'The file is not valid',
+                'type_id.exists' => 'This category does not exist'
             ]
         );
 
@@ -80,7 +84,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::select('id', 'label')->get();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
