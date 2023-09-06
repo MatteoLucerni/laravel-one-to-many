@@ -58,15 +58,32 @@
             class="form-control @error('other_langs') is-invalid @enderror" id="other_langs" name="other_langs">
     </div>
 </div>
-<div class="mb-3 w-25">
-    <label for="n_stars" class="form-label">Number of stars recived</label>
-    <input min="0" value="{{ old('n_stars', $project->n_stars) }}" type="number"
-        class="form-control @error('n_stars') is-invalid @enderror" id="n_stars" name="n_stars">
-    @error('n_stars')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
+<div class="d-flex">
+    <div class="mb-3 w-25">
+        <label for="n_stars" class="form-label">Number of stars recived</label>
+        <input min="0" value="{{ old('n_stars', $project->n_stars) }}" type="number"
+            class="form-control @error('n_stars') is-invalid @enderror" id="n_stars" name="n_stars">
+        @error('n_stars')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="mb-3 ms-4 w-25">
+        <label for="type_id" class="form-label">Category</label>
+        <select class="form-select @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
+            <option value="">None</option>
+            @foreach ($types as $type)
+                <option @if (old('type_id', $project->type_id) == $type->id) selected @endif value="{{ $type->id }}">
+                    {{ $type->label }}</option>
+            @endforeach
+        </select>
+        @error('type_id')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
 </div>
 <div class="mb-3 form-check">
     <label class="form-check-label" for="is_public">Open source</label>
