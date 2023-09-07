@@ -22,8 +22,8 @@
                         </h2>
                         <div class="d-flex">
                             @if ($project->type)
-                                <p style="background-color: {{ $project->type->color }}"
-                                    class="d-flex rounded border border-opacity-25 border-dark align-items-center m-0 px-3">
+                                <p style="border: 1px solid {{ $project->type->color }}; color: {{ $project->type->color }}"
+                                    class="d-flex rounded align-items-center m-0 px-3">
                                     {{ $project->type->label }}</p>
                             @else
                                 <p style="background-color: lightgray"
