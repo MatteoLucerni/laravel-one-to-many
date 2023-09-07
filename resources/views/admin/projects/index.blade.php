@@ -20,16 +20,26 @@
                         <h2 class="m-0 d-flex align-items-center">
                             {{ $project->title }}
                         </h2>
-                        @if ($project->type)
-                            <p style="background-color: {{ $project->type->color }}"
-                                class="d-flex rounded border border-dark align-items-center m-0 px-3">
-                                {{ $project->type->label }}</p>
-                        @endif
-                        @if ($project->is_public)
-                            <div class="alert alert-success m-0">
-                                Open-source
-                            </div>
-                        @endif
+                        <div class="d-flex">
+                            @if ($project->type)
+                                <p style="background-color: {{ $project->type->color }}"
+                                    class="d-flex rounded border border-opacity-25 border-dark align-items-center m-0 px-3">
+                                    {{ $project->type->label }}</p>
+                            @else
+                                <p
+                                    class="d-flex rounded border border-dark bg-secondary  align-items-center m-0 text-white px-3">
+                                    None</p>
+                            @endif
+                            @if ($project->is_public)
+                                <div class="alert alert-success m-0 ms-2">
+                                    Open-source
+                                </div>
+                            @else
+                                <div class="alert alert-danger m-0 ms-2">
+                                    Private-source
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-body">
                         <p class="">
