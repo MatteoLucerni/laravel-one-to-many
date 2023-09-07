@@ -13,11 +13,26 @@
                         <h2 class="m-0 d-flex align-items-center">
                             {{ $project->title }}
                         </h2>
-                        @if ($project->is_public)
-                            <div class="alert alert-success m-0">
-                                Open-source
-                            </div>
-                        @endif
+                        <div class="d-flex">
+                            @if ($project->type)
+                                <p style="border: 1px solid {{ $project->type->color }}; color: {{ $project->type->color }}"
+                                    class="d-flex rounded align-items-center m-0 px-3">
+                                    {{ $project->type->label }}</p>
+                            @else
+                                <p style="background-color: lightgray"
+                                    class="d-flex rounded border border-dark align-items-center m-0 px-3">
+                                    None</p>
+                            @endif
+                            @if ($project->is_public)
+                                <div class="alert alert-success m-0 ms-2">
+                                    Open-source
+                                </div>
+                            @else
+                                <div class="alert alert-danger m-0 ms-2">
+                                    Private-source
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-body">
                         <p class="">
@@ -26,6 +41,9 @@
                         <ul>
                             <li>
                                 <strong>Repository name:</strong> {{ $project->slug }}
+                            </li>
+                            <li>
+                                <strong>Category:</strong> {{ $project->type ? $project->type->label : 'None' }}
                             </li>
                             <li>
                                 <strong>Main Language:</strong> {{ $project->main_lang }}
