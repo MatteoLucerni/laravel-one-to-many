@@ -14,10 +14,19 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::orderBy('updated_at', 'DESC')->paginate(10);
-        return view('admin.projects.index', compact('projects'));
+        $filter = $request->query('filter');
+
+        $query = Project::orderBy('updated_at', 'DESC');
+
+        if ($filter) $query->where('type_id', $filter);
+
+        $projects = $query->paginate(10);
+
+        $types = Type::select('id', 'label')->get();
+
+        return view('admin.projects.index', compact('projects', 'types', 'filter'));
     }
 
     /**
