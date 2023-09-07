@@ -5,6 +5,18 @@
 
 @section('content')
     <h1 class="text-center mt-5">Discover My Projects</h1>
+    <form class="d-flex align-items-end mt-5 w-25" action="{{ route('guest.home') }}" method="GET">
+        <div class="input-group">
+            <button class="btn btn-outline-secondary" type="submit">Filtra</button>
+            <select class="form-select" name="filter" id="filter">
+                <option value="gg">None</option>
+                @foreach ($types as $type)
+                    <option @if ($filter == $type->id) selected @endif value="{{ $type->id }}">
+                        {{ $type->label }}</option>
+                @endforeach
+            </select>
+        </div>
+    </form>
     <ul class="list-unstyled">
         @forelse ($projects as $project)
             <li class="my-5">

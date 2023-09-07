@@ -9,10 +9,18 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::all();
+        $filter = $request->query('filter');
+
+        $query = Project::orderBy('updated_at', 'DESC');
+
+        if ($filter) $query->where('type_id', $filter);
+
+        $projects = $query->paginate(10);
+
         $types = Type::select('id', 'label')->get();
-        return view('guest.home', compact('projects', 'types'));
+
+        return view('guest.home', compact('projects', 'types', 'filter'));
     }
 }
