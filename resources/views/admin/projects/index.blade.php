@@ -26,8 +26,8 @@
                                     class="d-flex rounded border border-opacity-25 border-dark align-items-center m-0 px-3">
                                     {{ $project->type->label }}</p>
                             @else
-                                <p
-                                    class="d-flex rounded border border-dark bg-secondary  align-items-center m-0 text-white px-3">
+                                <p style="background-color: lightgray"
+                                    class="d-flex rounded border border-dark align-items-center m-0 px-3">
                                     None</p>
                             @endif
                             @if ($project->is_public)
